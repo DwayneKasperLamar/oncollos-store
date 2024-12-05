@@ -29,7 +29,7 @@ export const productType = defineType({
             validation: (Rule)=> Rule.required().min(0),
         }),
         defineField({
-            name: 'categories',
+            name: 'category',
             title:"categories",
             type: "array",
             of:[{type: "reference", to: {type: "category"} }]
