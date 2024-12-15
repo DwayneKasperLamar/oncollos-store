@@ -1,10 +1,15 @@
 import SearchForm from "../../components/SearchForm";
+import {getAllProducts} from "@/sanity/lib/products/getAllProducts";
 
-export default  async function Home({searchParams}: {
-  searchParams: Promise<{ query: string }>;
+
+
+export default  async function Home({searchParams}: { searchParams: Promise<{ query: string }>;
 }) {
 
-    const qurey = (await searchParams).query;
+    const query = (await searchParams).query;
+
+     const products = await getAllProducts();
+    
 
   return (
     <>
@@ -15,18 +20,8 @@ export default  async function Home({searchParams}: {
             <p className="sub-heading !max-w-3xl">
             Monetize Your Creativity: Upload Your Art and Start Earning with a Global Community of Creatives!
             </p>
-            <SearchForm qurey={qurey}/>
+            <SearchForm query={query}/>
       </section>
-
-      <section className="section_container">
-        <p className="text-30-semibold">
-          {qurey ? `Search results for ${ qurey}`: "All Frames"}
-        </p>
-
-      </section>
-
-
-
     </>
   )
 }

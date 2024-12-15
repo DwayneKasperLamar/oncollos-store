@@ -3,7 +3,7 @@ import { UserIcon } from "lucide-react";
 
 export const author = defineType({
   name: "author",
-  title: "Author",
+  title: "A",
   type: "document",
   icon: UserIcon,
   fields: [

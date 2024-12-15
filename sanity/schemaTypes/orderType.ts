@@ -1,6 +1,6 @@
 import {defineArrayMember, defineField, defineType} from "sanity";
 import {BasketIcon} from "@sanity/icons";
-import Email from "next-auth/providers/email";
+// import Email from "next-auth/providers/email";
 // import { Subtitles } from "lucide-react";
 
 export const orderType = defineType({
