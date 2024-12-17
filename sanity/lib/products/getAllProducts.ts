@@ -4,7 +4,7 @@ import { sanityFetch } from "../live";
 export const getAllProducts = async () => {
   const All_PRODUCTS_QUERY = defineQuery(`
     *[ 
-      _type == "product"
+      _type == "products"
     ] | order(name asc)
   `);
 
@@ -12,8 +12,10 @@ export const getAllProducts = async () => {
     const products = await sanityFetch({
       query: All_PRODUCTS_QUERY,
     });
+
     return products.data || [];
   } catch (error) {
-    throw new Error(`Error fetching products: ${error.message}`);
+    throw new Error("Error fetching products:", error);
+    return[];
   }
 };

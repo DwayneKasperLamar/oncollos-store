@@ -1,14 +1,15 @@
-import SearchForm from "../../components/SearchForm";
+import SearchForm from "@/components/SearchForm";
 import {getAllProducts} from "@/sanity/lib/products/getAllProducts";
-
-
+import {getAllCategories} from "@/sanity/lib/products/getAllCategories";
+import  ProductsView from "@/components/ProductsView";
 
 export default  async function Home({searchParams}: { searchParams: Promise<{ query: string }>;
 }) {
 
     const query = (await searchParams).query;
+    const products = await getAllProducts();
+    const categories = await getAllCategories();
 
-     const products = await getAllProducts();
     
 
   return (
@@ -22,6 +23,11 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
             </p>
             <SearchForm query={query}/>
       </section>
+
+     
+      <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p4">
+       <ProductsView products={products} categories={categories}/>
+      </div>
     </>
   )
 }
