@@ -10,8 +10,8 @@ interface ProductsViewProps {
 
 
 const  ProductsView = ({ products ,categories} : ProductsViewProps) => {
-    return 
-    <div className="flex flex-col"> 
+    return (
+         <div className="flex flex-col"> 
         {/* {categories} */}
 
             <div className="w-full sm:w-[200px]">
@@ -29,6 +29,6 @@ const  ProductsView = ({ products ,categories} : ProductsViewProps) => {
             </div>
         </div>
     </div>
-
+    )
 }
 export default  ProductsView;

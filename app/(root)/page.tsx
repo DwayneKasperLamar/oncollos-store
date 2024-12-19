@@ -1,14 +1,16 @@
+import ProductsView from "@/components/ProductsView";
 import SearchForm from "@/components/SearchForm";
 import {getAllProducts} from "@/sanity/lib/products/getAllProducts";
 import {getAllCategories} from "@/sanity/lib/products/getAllCategories";
-import  ProductsView from "@/components/ProductsView";
+
 
 export default  async function Home({searchParams}: { searchParams: Promise<{ query: string }>;
 }) {
 
     const query = (await searchParams).query;
     const products = await getAllProducts();
-    const categories = await getAllCategories();
+     const categories = await getAllCategories();
+    
 
     
 

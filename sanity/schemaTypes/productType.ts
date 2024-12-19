@@ -40,6 +40,18 @@ export const productType = defineType({
             type: "number",
             validation:(Rule)=>Rule.min(0),
         }),
+
+        defineField({
+            name: "slug",
+            title: "slug",
+            type: "slug",
+            options:{
+                source:"name",
+                maxLength:96,
+            },
+            validation:(Rule)=>Rule.required(),
+        }),
+        
     ],
     preview:{
         select: {
