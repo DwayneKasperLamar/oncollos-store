@@ -25,11 +25,19 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
             </p>
             <SearchForm query={query}/>
       </section>
-
-     
-      <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p4">
+       
+      <div className="flex flex-col items-center justify-top min-h-screen bg-secondary-100 p4">
        <ProductsView products={products} categories={categories}/>
       </div>
+
+      <section className="section_conatiner">
+        <p className="text-30-semibold">
+          {query ? `Search results for "${query}"` : "All Frame"}
+        </p>
+
+      </section>
+
+    
     </>
   )
 }

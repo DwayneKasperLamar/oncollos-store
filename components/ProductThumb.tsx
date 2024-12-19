@@ -1,14 +1,35 @@
-import {Product} from "@/sanity.types"
+import {Product} from "@/sanity.types";
 import Link from "next/link";
+import Image from "next/image";
+import {imageUrl} from "@/lib/ImageUrl";
 
 
 function ProductThumb({product}:{ product: Product }) {
-const isOutofStock = product.stock != null && product.stock <= 0;
+const isOutOfStock = product.stock != null && product.stock <= 0;
 
     return(
-        <Link href={`/product/${product.slug?.current}`} className={`group flex flex-col bg0-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutofStock ? "opacity-50 cursor-not-allowed" : ""}`}>
+        <Link href={`/product/${product.slug?.current}`} className={`group flex flex-col bg-primary rounded-lg border border-black-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""}`}
+        > hello
+        
+        <div className="relative aspect-sqaure w-full h-full overflow-hidden">
+            {product.image && (
+                <Image
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    src={imageUrl(product.image).url()}
+                    alt={product.name || "Product image"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+            )}
+            {isOutOfStock && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <span className="text-white font-bold text-lg">
+                    Out Of Stock
+                    </span>
+                </div>
+            )}
 
-            Product
+        </div>
         </Link> 
     )
 }

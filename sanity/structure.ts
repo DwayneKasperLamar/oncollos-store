@@ -13,4 +13,4 @@ export const structure: StructureResolver = (S) =>
         (item) => item.getId() && !['product', 'category', 'author'] .includes(item.getId()!)
       )
     ]);
-
+ 
