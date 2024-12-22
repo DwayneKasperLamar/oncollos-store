@@ -26,9 +26,7 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
             <SearchForm query={query}/>
       </section>
        
-      <div className="flex flex-col items-center justify-top min-h-screen bg-secondary-100 p4">
-       <ProductsView products={products} categories={categories}/>
-      </div>
+  
 
       <section className="section_conatiner">
         <p className="text-30-semibold">
@@ -36,6 +34,9 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
         </p>
 
       </section>
+       <div className="flex flex-col items-center justify-top min-h-screen bg-secondary-100 p4">
+       <ProductsView products={products} categories={categories}/>
+      </div>
 
     
     </>

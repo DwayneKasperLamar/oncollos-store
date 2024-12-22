@@ -1,70 +1,108 @@
 import {TrolleyIcon} from "@sanity/icons"
-// import { Subtitles } from "lucide-react"
 import { defineField, defineType } from "sanity"
 
 export const productType = defineType({
     name: 'product',
     title: 'Products',
     type: 'document',
-    icon : TrolleyIcon,
+    icon: TrolleyIcon,
     fields: [
         defineField({
-            name : "name",
-            title : "Product Name",
+            name: "name",
+            title: "Product Name",
             type: "string",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: "slug",
+            title: "Slug",
+            type: "slug",
+            options: {
+                source: "name",
+                maxLength: 96,
+            },
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
             name: "image",
-            title: "product Image",
+            title: "Product Image",
             type: "image",
             options: {
-                hotspot: true,
+                hotspot: true,  // Enables UI for selecting image focal point
+                metadata: ["blurhash", "lqip"], // Adds support for image previews
             },
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: "price",
+            title: 'price',
+            type: "number",
+            validation: (Rule) => Rule.required().min(0),
         }),
         defineField({
             name: "description",
-            title: 'price',
-            type: "number",
-            validation: (Rule)=> Rule.required().min(0),
+            title: "Description",
+            type: "array",
+            of: [{
+                type: "block",
+                // Customize block content
+                styles: [
+                    {title: 'Normal', value: 'normal'},
+                    {title: 'H2', value: 'h2'},
+                    {title: 'H3', value: 'h3'},
+                    {title: 'Quote', value: 'blockquote'}
+                ],
+                lists: [{title: 'Bullet', value: 'bullet'}],
+                marks: {
+                    decorators: [
+                        {title: 'Strong', value: 'strong'},
+                        {title: 'Emphasis', value: 'em'},
+                        {title: 'Code', value: 'code'}
+                    ],
+                    annotations: [
+                        {
+                            title: 'URL',
+                            name: 'link',
+                            type: 'object',
+                            fields: [
+                                {
+                                    title: 'URL',
+                                    name: 'href',
+                                    type: 'url'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }],
+            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: 'categories',
-            title:"categories",
+            title: "categories",
             type: "array",
-            of:[{type: "reference", to: {type: "category"} }]
+            of: [{type: "reference", to: {type: "category"}}],
+            validation: (Rule) => Rule.min(1).max(20).required().error("You must have at least one category"),
         }),
         defineField({
             name: "stock",
-            title: "stock",
+            title: "Stock",
             type: "number",
-            validation:(Rule)=>Rule.min(0),
+            validation: (Rule) => Rule.min(0),
         }),
-
-        defineField({
-            name: "slug",
-            title: "slug",
-            type: "slug",
-            options:{
-                source:"name",
-                maxLength:96,
-            },
-            validation:(Rule)=>Rule.required(),
-        }),
-        
     ],
-    preview:{
+    preview: {
         select: {
             title: "name",
             media: "image",
-            subtitle: "price",
+            price: "price",
         },
-        prepare(select){
-            return{
+        prepare(select) {
+            return {
                 title: select.title,
-                subtitle:`$${select.subtitle}`,
+                subtitle: `$${select.price}`,
                 media: select.media,
-            }
-        }
-    }
+            };
+        },
+    },
 });

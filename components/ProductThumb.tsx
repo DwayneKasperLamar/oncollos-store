@@ -3,13 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import {imageUrl} from "@/lib/ImageUrl";
 
-
 function ProductThumb({product}:{ product: Product }) {
-const isOutOfStock = product.stock != null && product.stock <= 0;
+    const isOutOfStock = product.stock != null && product.stock <= 0;
 
     return(
         <Link href={`/product/${product.slug?.current}`} className={`group flex flex-col bg-primary rounded-lg border border-black-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""}`}
-        > hello
+        > 
+        <div className="p-4 text-2xl font-bold text-red-500">
+            hello
+        </div>
         
         <div className="relative aspect-sqaure w-full h-full overflow-hidden">
             {product.image && (
@@ -23,12 +25,22 @@ const isOutOfStock = product.stock != null && product.stock <= 0;
             )}
             {isOutOfStock && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <span className="text-white font-bold text-lg">
+                    <span className="text-primary font-bold text-lg">
                     Out Of Stock
                     </span>
                 </div>
             )}
-
+        </div>
+        <div className="p-4">
+            <h2 className="text-lg font-semibold text-secondary-800 truncate">
+                {product.name}
+            </h2>
+            <p className="mt-2 text-sm text-secondary-600 line-clamp-2">
+                {product.description || "No description available"}
+            </p>
+            <p className="mt-2 text-lg font-bold text-gray-900">
+                ${product.price?.toFixed(2)}
+            </p>
         </div>
         </Link> 
     )

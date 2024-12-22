@@ -4,8 +4,11 @@ import { sanityFetch } from "../live";
 export const getAllProducts = async () => {
   const All_PRODUCTS_QUERY = defineQuery(`
     *[ 
-      _type == "products"
-    ] | order(name asc)
+      _type == "product"
+    ] {
+      ...,
+      "description": pt::text(description),
+    } | order(name asc)
   `);
 
   try {
