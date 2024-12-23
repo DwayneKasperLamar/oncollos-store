@@ -6,8 +6,19 @@ export const getAllProducts = async () => {
     *[ 
       _type == "product"
     ] {
-      ...,
-      "description": pt::text(description),
+      _id,
+      name,
+      slug,
+      price,
+      description,
+      stock,
+      image {
+        asset->{
+          _id,
+          url
+        }
+      },
+      categories[]->
     } | order(name asc)
   `);
 
@@ -19,6 +30,6 @@ export const getAllProducts = async () => {
     return products.data || [];
   } catch (error) {
     throw new Error("Error fetching products:", error as Error);
-    return[];
+    return [];
   }
 };

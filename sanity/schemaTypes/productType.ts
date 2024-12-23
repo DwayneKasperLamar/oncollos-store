@@ -28,58 +28,24 @@ export const productType = defineType({
             title: "Product Image",
             type: "image",
             options: {
-                hotspot: true,  // Enables UI for selecting image focal point
-                metadata: ["blurhash", "lqip"], // Adds support for image previews
+                hotspot: true,
             },
-            validation: (Rule) => Rule.required(),
         }),
         defineField({
             name: "price",
-            title: 'price',
+            title: "Price",
             type: "number",
             validation: (Rule) => Rule.required().min(0),
         }),
         defineField({
             name: "description",
             title: "Description",
-            type: "array",
-            of: [{
-                type: "block",
-                // Customize block content
-                styles: [
-                    {title: 'Normal', value: 'normal'},
-                    {title: 'H2', value: 'h2'},
-                    {title: 'H3', value: 'h3'},
-                    {title: 'Quote', value: 'blockquote'}
-                ],
-                lists: [{title: 'Bullet', value: 'bullet'}],
-                marks: {
-                    decorators: [
-                        {title: 'Strong', value: 'strong'},
-                        {title: 'Emphasis', value: 'em'},
-                        {title: 'Code', value: 'code'}
-                    ],
-                    annotations: [
-                        {
-                            title: 'URL',
-                            name: 'link',
-                            type: 'object',
-                            fields: [
-                                {
-                                    title: 'URL',
-                                    name: 'href',
-                                    type: 'url'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }],
+            type: "string",
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'categories',
-            title: "categories",
+            name: "categories",
+            title: "Categories",
             type: "array",
             of: [{type: "reference", to: {type: "category"}}],
             validation: (Rule) => Rule.min(1).max(20).required().error("You must have at least one category"),
