@@ -6,13 +6,17 @@ import {imageUrl} from "@/lib/ImageUrl";
 function ProductThumb({product}:{ product: Product }) {
     const isOutOfStock = product.stock != null && product.stock <= 0;
 
-    // Extract plain text from Portable Text description
-    const getPlainText = (blocks: Product['description']) => {
-        if (!blocks) return "No description available";
+    // Extract text from block content
+    const getBlockText = (blocks: Product['description']) => {
+        if (!blocks || !Array.isArray(blocks)) return "No description available";
+        
         return blocks
-            .map(block => block.children
-                ?.map(child => child.text)
-                .join('') || '')
+            .filter(block => block._type === 'block' && block.children)
+            .map(block => 
+                block.children
+                    ?.map(child => child?.text || '')
+                    .join('')
+            )
             .join(' ');
     };
 
@@ -43,7 +47,7 @@ function ProductThumb({product}:{ product: Product }) {
                 {product.name}
             </h2>
             <p className="mt-2 text-sm text-secondary-600 line-clamp-2">
-                {getPlainText(product.description)}
+                {getBlockText(product.description)}
             </p>
             <p className="mt-2 text-lg font-bold text-gray-900">
                 ${product.price?.toFixed(2)}
