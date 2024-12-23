@@ -23,7 +23,7 @@ function ProductThumb({product}:{ product: Product }) {
     return(
         <Link 
             href={`/product/${product.slug?.current}`} 
-            className={`group h-full bg-white rounded-lg shadow-sm hover:shadow-lg 
+            className={`group h-full bg-secondary rounded-lg shadow-sm hover:shadow-lg 
                 transition-all duration-200 overflow-hidden flex flex-col
                 ${isOutOfStock ? "opacity-50" : ""}`}
         > 
