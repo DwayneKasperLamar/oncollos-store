@@ -23,11 +23,11 @@ export const getAllProducts = async () => {
   `);
 
   try {
-    const products = await sanityFetch({
+    const product = await sanityFetch({
       query: All_PRODUCTS_QUERY,
     });
 
-    return products.data || [];
+    return product.data || [];
   } catch (error) {
     throw new Error("Error fetching products:", error as Error);
     return [];

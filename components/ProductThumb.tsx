@@ -21,38 +21,42 @@ function ProductThumb({product}:{ product: Product }) {
     };
 
     return(
-        <Link href={`/product/${product.slug?.current}`} className={`group flex flex-col bg-primary rounded-lg border border-black-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""}`}
+        <Link 
+            href={`/product/${product.slug?.current}`} 
+            className={`group h-full bg-white rounded-lg shadow-sm hover:shadow-lg 
+                transition-all duration-200 overflow-hidden flex flex-col
+                ${isOutOfStock ? "opacity-50" : ""}`}
         > 
-        <div className="relative aspect-square w-full overflow-hidden">
-            {product.image?.asset && (
-                <Image
-                    className="object-contain transition-transform duration-300 group-hover:scale-105"
-                    src={imageUrl(product.image).url()}
-                    alt={product.name || "Product image"}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority
-                />
-            )}
-            {isOutOfStock && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <span className="text-primary font-bold text-lg">
-                    Out Of Stock
-                    </span>
-                </div>
-            )}
-        </div>
-        <div className="p-4">
-            <h2 className="text-lg font-semibold text-secondary-800 truncate">
-                {product.name}
-            </h2>
-            <p className="mt-2 text-sm text-secondary-600 line-clamp-2">
-                {getBlockText(product.description)}
-            </p>
-            <p className="mt-2 text-lg font-bold text-gray-900">
-                ${product.price?.toFixed(2)}
-            </p>
-        </div>
+            <div className="relative w-full aspect-square bg-gray-100">
+                {product.image?.asset && (
+                    <Image
+                        className="absolute inset-0 w-full h-full object-contain p-2"
+                        src={imageUrl(product.image).url()}
+                        alt={product.name || "Product image"}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority
+                    />
+                )}
+                {isOutOfStock && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <span className="text-white font-bold text-lg">
+                            Out Of Stock
+                        </span>
+                    </div>
+                )}
+            </div>
+            <div className="flex flex-col flex-grow p-4 space-y-2 bg-white">
+                <h2 className="text-lg font-semibold text-gray-900 truncate">
+                    {product.name}
+                </h2>
+                <p className="text-sm text-gray-600 line-clamp-2 min-h-[2.5rem]">
+                    {getBlockText(product.description)}
+                </p>
+                <p className="text-lg font-bold text-gray-900 mt-auto pt-2">
+                    ${product.price?.toFixed(2)}
+                </p>
+            </div>
         </Link> 
     )
 }
