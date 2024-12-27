@@ -30,7 +30,7 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
 
       <section className="section_conatiner">
         <p className="text-30-semibold">
-          {query ? `Search results for "${query}"` : "All Frame"}
+          {query ? `Search results for "${query}"` : ""}
         </p>
 
       </section>

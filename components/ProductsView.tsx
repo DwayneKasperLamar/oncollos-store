@@ -21,7 +21,7 @@ const  ProductsView = ({ products ,categories} : ProductsViewProps) => {
 
             {/* {products} */}
 
-        <div className="flex-1">
+        <div>
             <div>
                 <ProductGrid products={products} />
 
