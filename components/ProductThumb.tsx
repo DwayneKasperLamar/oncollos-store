@@ -29,7 +29,7 @@ function ProductThumb({product}:{ product: Product }) {
             <div className="relative w-full aspect-square bg-gray-100">
                 {product.image?.asset && (
                     <Image
-                        className="absolute inset-0 w-full h-full object-contain p-2"
+                        className="absolute inset-0 w-full h-full object-contain p-2 aspect-square rounded-md bg-gray-100 group-hover:opacity-75 lg:aspect-auto lg:h-80"
                         src={imageUrl(product.image).url()}
                         alt={product.name || "Product image"}
                         fill
@@ -45,18 +45,23 @@ function ProductThumb({product}:{ product: Product }) {
                     </div>
                 )}
             </div>
-            <div className="p4">
-                <h2 className="text-lg font-semibold text-gray-900 truncate p-4">
+            <div className="mt-4 flex justify-evenly items-center w-full ">
+                <h2 className="text-md text-black-500 p-15 font-medium">
                     {product.name}
                 </h2>
-
-                <p className="mt-2 text-sm text-gray-600 line-clamp-2 p-5">
-                    {getBlockText(product.description)}
-                </p>
-                <p className="mt-2 text-lg font-bold text-gray-900">
+                
+                 {/* <h2 className="text-md text-gray-700 p-15">
+                    {product.name}
+                </h2> */}
+                 <p className="font-bold text-black-500">
                     ${product.price?.toFixed(2)}
                 </p>
             </div>
+             <div className="p-3">
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-2 p-5 ">
+                    {getBlockText(product.description)}
+                </p> 
+                </div>
         </Link> 
     )
 }
