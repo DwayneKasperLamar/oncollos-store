@@ -2,6 +2,7 @@ import ProductsView from "@/components/ProductsView";
 import SearchForm from "@/components/SearchForm";
 import {getAllProducts} from "@/sanity/lib/products/getAllProducts";
 import {getAllCategories} from "@/sanity/lib/products/getAllCategories";
+// import SalesBanner from "@/components/SalesBanner";
 
 
 export default  async function Home({searchParams}: { searchParams: Promise<{ query: string }>;
@@ -33,6 +34,7 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
           {query ? `Search results for "${query}"` : ""}
         </p>
         <ProductsView products={products} categories={categories}/>
+        {/* <SalesBanner/> */}
 
       </section>
        

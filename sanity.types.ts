@@ -68,6 +68,22 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Sales = {
+  _id: string;
+  _type: "sales";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
+  discountAmount?: number;
+  couponCode?: string;
+  validFrom?: string;
+  validUntil?: string;
+  isActive?: boolean;
+};
+
 export type Order = {
   _id: string;
   _type: "order";
@@ -231,7 +247,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Order | Category | Author | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sales | Order | Category | Author | Product | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: All_CATEGORIES_QUERY
@@ -292,11 +308,17 @@ export type All_PRODUCTS_QUERYResult = Array<{
   }> | null;
 }>;
 
+// Source: ./sanity/lib/Sales/getActiveSaleByCouponCode.tsx
+// Variable: ACTIVE_SALE_BY_COUPON_QUERY
+// Query: *[      _type == "Sales"       && isActive == true      && couponCode == $couponCode    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces
+export type ACTIVE_SALE_BY_COUPON_QUERYResult = null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n    *[ \n      _type == \"category\"\n    ] | order(name asc)\n  ": All_CATEGORIES_QUERYResult;
     "\n    *[ \n      _type == \"product\"\n    ] {\n      _id,\n      name,\n      slug,\n      price,\n      description,\n      stock,\n      image {\n        asset->{\n          _id,\n          url\n        }\n      },\n      categories[]->\n    } | order(name asc)\n  ": All_PRODUCTS_QUERYResult;
+    "\n    *[\n      _type == \"Sales\" \n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }
