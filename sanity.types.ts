@@ -310,7 +310,7 @@ export type All_PRODUCTS_QUERYResult = Array<{
 
 // Source: ./sanity/lib/Sales/getActiveSaleByCouponCode.tsx
 // Variable: ACTIVE_SALE_BY_COUPON_QUERY
-// Query: *[      _type == "Sales"       && isActive == true      && couponCode == $couponCode    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces
+// Query: *[      _type == "Sales"        && isActive == true      && couponCode == $couponCode    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces
 export type ACTIVE_SALE_BY_COUPON_QUERYResult = null;
 
 // Query TypeMap
@@ -319,6 +319,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n    *[ \n      _type == \"category\"\n    ] | order(name asc)\n  ": All_CATEGORIES_QUERYResult;
     "\n    *[ \n      _type == \"product\"\n    ] {\n      _id,\n      name,\n      slug,\n      price,\n      description,\n      stock,\n      image {\n        asset->{\n          _id,\n          url\n        }\n      },\n      categories[]->\n    } | order(name asc)\n  ": All_PRODUCTS_QUERYResult;
-    "\n    *[\n      _type == \"Sales\" \n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
+    "\n    *[\n      _type == \"Sales\"  \n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }

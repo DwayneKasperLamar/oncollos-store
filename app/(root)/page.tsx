@@ -2,13 +2,19 @@ import ProductsView from "@/components/ProductsView";
 import SearchForm from "@/components/SearchForm";
 import {getAllProducts} from "@/sanity/lib/products/getAllProducts";
 import {getAllCategories} from "@/sanity/lib/products/getAllCategories";
-// import SalesBanner from "@/components/SalesBanner";
+import SalesBanner from "@/components/SalesBanner";
+import { sanityFetch } from "@/sanity/lib/live";
 
 
-export default  async function Home({searchParams}: { searchParams: Promise<{ query: string }>;
+export default  async function Home({searchParams}
+  :{
+     searchParams: Promise<{ query: string }>;
 }) {
 
     const query = (await searchParams).query;
+    const params = {search: query || null};
+    const { data:products} = await sanityFetch(options: {query:STARTUPS_QUERY, params});
+
     const products = await getAllProducts();
      const categories = await getAllCategories();
     
@@ -34,8 +40,8 @@ export default  async function Home({searchParams}: { searchParams: Promise<{ qu
           {query ? `Search results for "${query}"` : ""}
         </p>
         <ProductsView products={products} categories={categories}/>
-        {/* <SalesBanner/> */}
 
+        <SalesBanner/>
       </section>
        
 

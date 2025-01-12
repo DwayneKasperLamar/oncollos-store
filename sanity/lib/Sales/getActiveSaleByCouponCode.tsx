@@ -5,7 +5,7 @@ import { sanityFetch } from "../live";
 export const getActiveSaleByCouponCode = async (couponCode: CouponCode) => {
   const ACTIVE_SALE_BY_COUPON_QUERY = defineQuery(`
     *[
-      _type == "Sales" 
+      _type == "Sales"  
       && isActive == true
       && couponCode == $couponCode
     ] | order(validFrom desc)[0] // Corrected: Removed extra spaces
