@@ -20,6 +20,7 @@ export const getAllProducts = async () => {
       },
       categories[]->
     } | order(name asc)
+    
   `);
 
   try {

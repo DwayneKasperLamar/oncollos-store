@@ -308,6 +308,57 @@ export type All_PRODUCTS_QUERYResult = Array<{
   }> | null;
 }>;
 
+// Source: ./sanity/lib/products/getProductsBySlug.ts
+// Variable: PRODUCT_BY_ID_QUERY
+// Query: *[ _type == "product" && slug.current == $slug    ] | order(name asc) [0]
+export type PRODUCT_BY_ID_QUERYResult = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  price?: number;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+} | null;
+
 // Source: ./sanity/lib/Sales/getActiveSaleByCouponCode.tsx
 // Variable: ACTIVE_SALE_BY_COUPON_QUERY
 // Query: *[      _type == "Sales"        && isActive == true      && couponCode == $couponCode    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces
@@ -318,7 +369,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n    *[ \n      _type == \"category\"\n    ] | order(name asc)\n  ": All_CATEGORIES_QUERYResult;
-    "\n    *[ \n      _type == \"product\"\n    ] {\n      _id,\n      name,\n      slug,\n      price,\n      description,\n      stock,\n      image {\n        asset->{\n          _id,\n          url\n        }\n      },\n      categories[]->\n    } | order(name asc)\n  ": All_PRODUCTS_QUERYResult;
+    "\n    *[ \n      _type == \"product\"\n    ] {\n      _id,\n      name,\n      slug,\n      price,\n      description,\n      stock,\n      image {\n        asset->{\n          _id,\n          url\n        }\n      },\n      categories[]->\n    } | order(name asc)\n    \n  ": All_PRODUCTS_QUERYResult;
+    "\n    *[ _type == \"product\" && slug.current == $slug\n\n    ] | order(name asc) [0]\n    ": PRODUCT_BY_ID_QUERYResult;
     "\n    *[\n      _type == \"Sales\"  \n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0] // Corrected: Removed extra spaces\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }
