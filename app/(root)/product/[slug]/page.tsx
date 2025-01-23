@@ -27,28 +27,35 @@ async function ProductPage ({ params, }:{params:Promise<{
          </section>
 
 
-    
-        <div className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className={` relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}>
+
           {product.image && (
             <Image
               src={imageUrl(product.image).url()}
               alt={product.name ?? "Product image"}
               width={600}
               height={200}
-              className="object-contain transition-transform duration-300 hover:scale-105 flex-row flex"
+              className="object-contain transition-transform duration-300 hover:scale-105 border border-black "
             />
           )}
-           <div className=" py-10 mt-10 prose max-w-none flex justify-end border border-black">
-          {Array.isArray(product.description) && (
-              <PortableText value={product.description} />
-            )}
-        </div>
           {isOutOfStock && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className=" absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <span className="text-white font-bold text-lg">Out of Stock</span>
             </div>
           )}
         </div>
+          <div className=" flex flex-col justify-between border border-black ">
+            <div className="prose max-none"> 
+            {Array.isArray(product.description) && (
+              <PortableText value={product.description} />
+            )}
+            </div>
+            <div className="text-xl font-semibold ">
+              ${product.price?.toFixed(2)}
+            </div>
+        </div>
+      </div>
     </>
   );
 };
