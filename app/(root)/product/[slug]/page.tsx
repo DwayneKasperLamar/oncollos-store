@@ -22,12 +22,13 @@ async function ProductPage ({ params, }:{params:Promise<{
         <p className="tag">Date Goes here</p>
         <h1 className="heading">{product.name}</h1>
           <div className="sub-heading !max-w-5xl">
-            
+            <h1 className="flex-1">{product.category}</h1>
           </div>
          </section>
 
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 broder-black">
               <div className={` relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}>
 
           {product.image && (
@@ -36,7 +37,7 @@ async function ProductPage ({ params, }:{params:Promise<{
               alt={product.name ?? "Product image"}
               width={600}
               height={200}
-              className="object-contain transition-transform duration-300 hover:scale-105 border border-black "
+              className="object-contain transition-transform duration-300 hover:scale-105"
             />
           )}
           {isOutOfStock && (
@@ -45,14 +46,17 @@ async function ProductPage ({ params, }:{params:Promise<{
             </div>
           )}
         </div>
-          <div className=" flex flex-col justify-between border border-black ">
-            <div className="prose max-none"> 
-            {Array.isArray(product.description) && (
+        <div className="border  border-black h-auto">
+
+          <div className="text-xl font-semibold mt-20">
+               ${product.price?.toFixed(2)}
+           </div>
+
+                <div className="absolute mt-60 p-8 border border-black"> 
+
+              {Array.isArray(product.description) && (
               <PortableText value={product.description} />
             )}
-            </div>
-            <div className="text-xl font-semibold ">
-              ${product.price?.toFixed(2)}
             </div>
         </div>
       </div>
