@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { imageUrl } from "@/lib/ImageUrl";
+import { ShoppingBasket } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { UserRound } from 'lucide-react';
+
 
 
 async function ProductPage ({ params, }:{params:Promise<{
@@ -46,13 +50,31 @@ async function ProductPage ({ params, }:{params:Promise<{
             </div>
           )}
         </div>
-        <div className="border  border-black h-auto">
 
-          <div className="text-xl font-semibold mt-20">
-               ${product.price?.toFixed(2)}
+
+        <div>
+          <div className="flex flex-col border border-black-100 bg-black-200 h-52 rounded-xl   p-8 m-20">
+
+            <div className="text-xl text-white font-semibold flex mt-5">
+              ${product.price?.toFixed(2)}
+              </div>
+
+              <div className="bg-black-100 w-40 rounded-xl mt-5">
+                 <Star/> raitings 5.5
+              </div>
+
+              <div className="bg-black-100 w-40 rounded-xl mt-5 ">
+                <UserRound /> 
+              </div>
+             
+               {/* <div>
+                 <button className="bg-black-300 w-40 flex justify-evenly p-3 text-sm rounded-xl">
+                  <ShoppingBasket/>shopping</button>
+               </div> */}
+                
            </div>
 
-                <div className="absolute mt-60 p-8 border border-black"> 
+                <div className="absolute mt-30 p-8 border border-black m-10"> 
 
               {Array.isArray(product.description) && (
               <PortableText value={product.description} />
